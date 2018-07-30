@@ -4,6 +4,7 @@ import java8.data.Data;
 import java8.data.Person;
 import org.junit.Test;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
@@ -18,8 +19,12 @@ public class Method_03_Test {
     interface IDao {
         List<Person> findAll();
 
-        // TODO créer une méthode statique IDao getDefaultInstance()
-        // TODO cette méthode retourne une instance de la classe DaoA
+        //créer une méthode statique IDao getDefaultInstance()
+        //cette méthode retourne une instance de la classe DaoA
+         public static IDao getDefaultInstance(){
+        	 Method_03_Test method = new Method_03_Test();
+        	 return method.new DaoA();
+         }
     }
     // end::IDao[]
 
@@ -36,8 +41,8 @@ public class Method_03_Test {
 
     @Test
     public void test_getDefaultInstance() throws Exception {
-        // TODO invoquer la méthode getDefaultInstance() pour que le test soit passant
-        IDao result = null;
+        //Invoquer la méthode getDefaultInstance() pour que le test soit passant
+        IDao result = IDao.getDefaultInstance();
 
         assertThat(result.findAll(), hasSize(20));
     }
